@@ -1,23 +1,26 @@
-import { useState } from "react";
 import { UserList } from "./components/UserList";
+import { LoadingScreen } from "./components/LoadingScreen";
+import { ErrorScreen } from "./components/ErrorScreen";
 import { useFetchUsers } from "./hooks/useFetchUsers";
 import styles from "./styles/app.module.css";
-import { LoadingScreen } from "./components/LoadingScreen";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const users = useFetchUsers(setIsLoading);
+  const { users, isLoading, error, refetch } = useFetchUsers();
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (error != null) {
+    return <ErrorScreen message={error.message} onRetry={refetch} />;
+  }
 
   return (
     <>
-      {isLoading ? (
-        <LoadingScreen />
-      ) : (
-        <div className={styles.app}>
-          <h1 className={styles.title}>Users</h1>
-          <UserList users={users} />
-        </div>
-      )}
+      <div className={styles.app}>
+        <h1 className={styles.title}>Users</h1>
+        <UserList users={users} />
+      </div>
     </>
   );
 }
