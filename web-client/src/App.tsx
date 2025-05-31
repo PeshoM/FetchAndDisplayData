@@ -1,15 +1,24 @@
+import { useState } from "react";
 import { UserList } from "./components/UserList";
 import { useFetchUsers } from "./hooks/useFetchUsers";
 import styles from "./styles/app.module.css";
+import { LoadingScreen } from "./components/LoadingScreen";
 
 function App() {
-  const users = useFetchUsers();
+  const [isLoading, setIsLoading] = useState(true);
+  const users = useFetchUsers(setIsLoading);
 
   return (
-    <div className={styles.app}>
-      <h1 className={styles.title}>Users</h1>
-      <UserList users={users} />
-    </div>
+    <>
+      {isLoading ? (
+        <LoadingScreen />
+      ) : (
+        <div className={styles.app}>
+          <h1 className={styles.title}>Users</h1>
+          <UserList users={users} />
+        </div>
+      )}
+    </>
   );
 }
 
