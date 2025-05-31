@@ -1,21 +1,15 @@
 import React from "react";
+import { UserCardProps } from "../models/user.interface";
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-}
 
-const UserCard: React.FC<User> = ({ name, email, phone }) => {
+
+const UserCard: React.FC<UserCardProps> = ({ name, email }) => {
   return (
     <div>
       <h2>{name}</h2>
       <p>{email}</p>
-      <p>{phone}</p>
     </div>
   );
 };
 
 export { UserCard };
-export type { User };

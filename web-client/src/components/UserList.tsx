@@ -1,9 +1,7 @@
 import React from "react";
-import { User, UserCard } from "./UserCard";
+import { UserCard } from "./UserCard";
+import { UserListProps } from "../models/user.interface";
 
-interface UserListProps {
-  users: User[];
-}
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
   return (
